@@ -2,20 +2,17 @@ import { useState, useRef, useMemo } from "react";
 import { NavLink, useLocation, matchPath } from "react-router-dom";
 import { useDisclosure, Collapse } from "@chakra-ui/react";
 import clsx from "clsx";
-import { IRoute } from "routes/RoutesHandler";
+import links, { ILink } from "./Links";
 
 import { TriangleDownIcon } from "@chakra-ui/icons";
 
 type MenuItemProps = {
-  item: IRoute;
+  item: ILink;
   isActive: boolean;
   className?: string;
 };
 type CollapseItemProps = {
-  item: IRoute;
-};
-type SidebarItemProps = {
-  adminRoutes: IRoute[];
+  item: ILink;
 };
 
 const MenuItem = ({ item, isActive, className }: MenuItemProps) => (
@@ -34,7 +31,7 @@ const MenuItem = ({ item, isActive, className }: MenuItemProps) => (
       )}
     >
       <i className="mr-2">{item.icon}</i>
-      {item.name}
+      {item.title}
     </span>
   </span>
 );
@@ -45,9 +42,7 @@ const CollapseItem = ({ item }: CollapseItemProps) => {
 
   const isActive = useMemo(() => {
     const isActive = Boolean(
-      item?.menuSubRoutes?.find((item) =>
-        matchPath(item.path, location.pathname)
-      )
+      item?.subLinks?.find((item) => matchPath(item.href, location.pathname))
     );
     if (isActive) onOpen();
     else onClose();
@@ -67,8 +62,8 @@ const CollapseItem = ({ item }: CollapseItemProps) => {
         <TriangleDownIcon />
       </div>
       <Collapse in={isOpen} animateOpacity>
-        {item?.menuSubRoutes?.map((item) => (
-          <NavLink to={item.path}>
+        {item?.subLinks?.map((item) => (
+          <NavLink to={item.href}>
             {({ isActive }) => (
               <MenuItem item={item} isActive={isActive} className="pl-8" />
             )}
@@ -79,32 +74,29 @@ const CollapseItem = ({ item }: CollapseItemProps) => {
   );
 };
 
-export default function Sidebar({ adminRoutes }: SidebarItemProps) {
+export default function Sidebar() {
   return (
     <div className="h-full py-4 bg-gray-100 border-r">
       <div className="px-4">Logo</div>
 
       <div>
-        <h3 className="py-2 px-4">Menu</h3>
+        <h3 className="px-4 py-2">Menu</h3>
         <ul>
-          {adminRoutes.map(
-            (item) =>
-              item.inMainMenu && (
-                <li className="flex">
-                  {item.menuSubRoutes ? (
-                    <div className="grow">
-                      <CollapseItem item={item} />
-                    </div>
-                  ) : (
-                    <NavLink to={item.path} className="grow">
-                      {({ isActive }) => (
-                        <MenuItem item={item} isActive={isActive} />
-                      )}
-                    </NavLink>
+          {links.map((item) => (
+            <li className="flex">
+              {item.subLinks ? (
+                <div className="grow">
+                  <CollapseItem item={item} />
+                </div>
+              ) : (
+                <NavLink to={item.href} className="grow">
+                  {({ isActive }) => (
+                    <MenuItem item={item} isActive={isActive} />
                   )}
-                </li>
-              )
-          )}
+                </NavLink>
+              )}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
