@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  app:
+    image: app-elite-dashboard
+    ports:
+      - 3000:80
+    build:
+      context: .
+      target: production

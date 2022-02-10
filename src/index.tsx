@@ -4,16 +4,11 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-// import { ReactQueryDevtools } from "react-query/devtools";
+import { ChakraProvider } from "@chakra-ui/react";
 
 // styles
+import { theme } from "utils/theme";
 import "./assets/styles/index.css";
-
-// theme
-import { ThemeProvider } from "styled-components";
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../tailwind.config.js";
-const { theme } = resolveConfig(tailwindConfig);
 
 const queryClient = new QueryClient();
 
@@ -21,11 +16,10 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <ThemeProvider theme={theme}>
+        <ChakraProvider theme={theme}>
           <App />
-        </ThemeProvider>
+        </ChakraProvider>
       </BrowserRouter>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")

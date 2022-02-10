@@ -4,6 +4,8 @@
     "paths": {
       "assets": ["./assets"],
       "components": ["./components"],
+      "layouts": ["./layouts"],
+      "routes": ["./routes"],
       "utils": ["./utils"],
       "views": ["./views"]
     }
