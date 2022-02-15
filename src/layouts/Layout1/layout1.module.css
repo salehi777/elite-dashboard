@@ -1,0 +1,13 @@
+.list path {
+  fill: #03022966;
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+}
+
+.list :global(a.active) path {
+  fill: #030229;
+}
+
+.profile i path {
+  fill: #03022966;
+}

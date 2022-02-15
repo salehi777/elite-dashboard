@@ -1,18 +1,16 @@
 import Sidebar from "./Sidebar";
 
 type Layout1Props = {
-  children: React.ReactNode;
+  children: JSX.Element;
 };
 
 export default function Layout1({ children }: Layout1Props) {
   return (
     <div className="flex">
-      <div className="min-h-screen w-80">
+      <div className="min-h-screen w-60 fixed">
         <Sidebar />
       </div>
-      <div className="flex flex-col min-h-screen grow">
-        <main className="grow">{children}</main>
-      </div>
+      <main className="min-h-screen grow p-8 ml-60">{children}</main>
     </div>
   );
 }

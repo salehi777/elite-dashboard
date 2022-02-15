@@ -1,7 +1,8 @@
 import React from "react";
 
 import Dashboard from "views/Dashboard";
-import Projects from "views/Projects";
+import Invoice from "views/Invoice";
+import Login from "views/Auth/Login";
 
 import { IRoute } from "./RoutesHandler";
 
@@ -11,20 +12,36 @@ const routes: IRoute[] = [
     component: Dashboard,
   },
   {
-    path: "/projects/archive",
-    component: Projects,
-  },
-  {
-    path: "/projects/draft",
-    component: Projects,
-  },
-  {
-    path: "/tasks",
+    path: "/analytics",
     component: Dashboard,
   },
   {
-    path: "/tasks/:id",
+    path: "/invoice",
+    component: Invoice,
+  },
+  {
+    path: "/schedule",
     component: Dashboard,
+  },
+  {
+    path: "/calendar",
+    component: Dashboard,
+  },
+  {
+    path: "/messages",
+    component: Dashboard,
+  },
+  {
+    path: "/notification",
+    component: Dashboard,
+  },
+  {
+    path: "/settings",
+    component: Dashboard,
+  },
+  {
+    path: "/login",
+    component: Login,
   },
 ];
 

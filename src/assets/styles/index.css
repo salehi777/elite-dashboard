@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#root {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: "Nunito", sans-serif;
+  color: #030229;
+  background: #fafafa;
+}
+
+button.chakra-button {
+  border-radius: 10px;
+}
+
+svg[viewBox] {
+  display: inline;
+}
+
+.chakra-form-control {
+  margin-bottom: 12px;
+}
+.chakra-form__label[class] {
+  margin-bottom: 5px;
+}
+.chakra-form__error-message[class] {
+  margin-top: 5px;
+}
