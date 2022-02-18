@@ -18,9 +18,17 @@ export interface SortObject {
 
 export interface ApiParams {
   page: number;
+  search: string;
   sort_type: string | undefined;
   sort_by: string | undefined;
 }
+
+export type TableHeaderProps = {
+  search: string;
+  showSearch?: boolean;
+  buttons?: JSX.Element[];
+  setSearch: (search: string) => void;
+};
 
 export type BaseTableProps = {
   data: any[] | undefined;
@@ -43,6 +51,8 @@ export type TableProps = {
   gridTemplateColumns: string;
   selectable?: any;
   rowKey?: string;
+  showSearch?: boolean;
+  buttons?: JSX.Element[];
 };
 
 export type PaginationProps = {

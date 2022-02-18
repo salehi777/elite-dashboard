@@ -1,5 +1,7 @@
 import Dashboard from "views/Dashboard";
 import Invoice from "views/Invoice";
+import AddInvoice from "views/Invoice/AddInvoice";
+import EditInvoice from "views/Invoice/EditInvoice";
 
 import { IRoute } from "./RoutesHandler";
 
@@ -15,6 +17,14 @@ const routes: IRoute[] = [
   {
     path: "/invoice",
     component: Invoice,
+  },
+  {
+    path: "/invoice/add",
+    component: AddInvoice,
+  },
+  {
+    path: "/invoice/edit/:_id",
+    component: EditInvoice,
   },
   {
     path: "/schedule",

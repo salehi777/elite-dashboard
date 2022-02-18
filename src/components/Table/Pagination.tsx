@@ -19,7 +19,7 @@ export default function Pagination({
     siblingCount,
   });
 
-  const lastPage = paginationRange[paginationRange.length - 1];
+  const lastPage = paginationRange[paginationRange.length - 1] || 1;
 
   return (
     <ul className="flex space-x-1">

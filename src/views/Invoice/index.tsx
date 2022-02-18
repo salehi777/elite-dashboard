@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react";
-import Table from "components/Table";
+import { Link } from "react-router-dom";
+import Table from "components/Table/Table";
 import { IColumn, ISelectableItem } from "components/Table/types";
 import Menu from "components/Menu";
 import ViewId from "components/Views/ViewId";
 import AlertDelete from "components/Alert/AlertDelete";
 import { toast } from "react-toastify";
 import moment from "moment";
+import InvoiceStatus from "components/Status/InvoiceStatus";
+import { Spinner, Button } from "@chakra-ui/react";
 
 import { ReactComponent as StarIcon } from "assets/icons/Star.svg";
 import { ReactComponent as Star2Icon } from "assets/icons/Star-2.svg";
@@ -23,6 +26,7 @@ export default function Invoice() {
   });
 
   const [reload, setReload] = useState(false);
+  const [toggleLoading, setToggleLoading] = useState("");
 
   const [itemToChange, setItemToChange] = useState<any>();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -63,7 +67,7 @@ export default function Invoice() {
         key: "status",
         title: "Status",
         sortKey: "status",
-        render: (record) => <div>{record.status}</div>,
+        render: (record) => <InvoiceStatus status={record.status} />,
       },
       {
         key: "fav",
@@ -71,13 +75,23 @@ export default function Invoice() {
         render: (record) => (
           <div
             className="cursor-pointer"
-            onClick={() =>
+            onClick={() => {
+              setToggleLoading(record._id);
               toggleInvoice(record._id)
-                .then(() => setReload((prev) => !prev))
-                .catch(() => {})
-            }
+                .then(() => {
+                  setReload((prev) => !prev);
+                  setToggleLoading("");
+                })
+                .catch(() => setToggleLoading(""));
+            }}
           >
-            {record.fav ? <StarIcon /> : <Star2Icon />}
+            {toggleLoading === record._id ? (
+              <Spinner />
+            ) : record.fav ? (
+              <StarIcon />
+            ) : (
+              <Star2Icon />
+            )}
           </div>
         ),
       },
@@ -140,6 +154,14 @@ export default function Invoice() {
       .catch(() => {});
   };
 
+  const buttons = [
+    <Link to="/invoice/add" className="flex">
+      <Button colorScheme="primary" className="!py-2">
+        + Add New
+      </Button>
+    </Link>,
+  ];
+
   return (
     <div>
       <AlertDelete
@@ -156,9 +178,11 @@ export default function Invoice() {
         name="invoices"
         api={getInvoices}
         columns={columns}
-        gridTemplateColumns="65px 1fr 1fr 1fr 1fr 50px 50px"
+        gridTemplateColumns="85px 1fr 1fr 1fr 1fr 50px 50px"
         selectable={selectable}
         reload={reload}
+        showSearch={true}
+        buttons={buttons}
       />
     </div>
   );

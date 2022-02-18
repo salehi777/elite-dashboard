@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import BaseTable from "./BaseTable";
 import { TableProps, SortObject } from "./types";
 import Pagination from "./Pagination";
+import TableHeader from "./TableHeader";
 
 export default function Table({
   name,
@@ -15,14 +16,15 @@ export default function Table({
 }: TableProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
+  const [search, setSearch] = useState(searchParams.get("search") || "");
   const [sort, setSort] = useState<SortObject>({
     type: searchParams.get("sort_type") || undefined,
     by: searchParams.get("sort_by") || undefined,
   });
 
   const { data, isLoading, isError, error, refetch, ...query } = useQuery(
-    [name, page, sort.type, sort.by],
-    () => api({ page, sort_type: sort.type, sort_by: sort.by })
+    [name, page, search, sort.type, sort.by],
+    () => api({ page, search, sort_type: sort.type, sort_by: sort.by })
   );
 
   useEffect(() => {
@@ -31,13 +33,28 @@ export default function Table({
 
   return (
     <div>
+      <TableHeader
+        search={search}
+        setSearch={(newSearch) => {
+          setSearchParams({
+            page: String(page),
+            search: newSearch,
+            sort_type: sort.type || "",
+            sort_by: sort.by || "",
+          });
+          setSearch(newSearch);
+        }}
+        {...props}
+      />
+
       <BaseTable
-        data={data}
+        data={data?.items}
         isLoading={isLoading}
         sort={sort}
         setSort={(newSort) => {
           setSearchParams({
             page: String(page),
+            search,
             sort_type: newSort.type || "",
             sort_by: newSort.by || "",
           });
@@ -54,6 +71,7 @@ export default function Table({
           onPageChange={(newPage) => {
             setSearchParams({
               page: String(newPage),
+              search,
               sort_type: sort.type || "",
               sort_by: sort.by || "",
             });
