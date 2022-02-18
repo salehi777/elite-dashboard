@@ -1,8 +1,5 @@
-import React from "react";
-
 import Dashboard from "views/Dashboard";
 import Invoice from "views/Invoice";
-import Login from "views/Auth/Login";
 
 import { IRoute } from "./RoutesHandler";
 
@@ -38,10 +35,6 @@ const routes: IRoute[] = [
   {
     path: "/settings",
     component: Dashboard,
-  },
-  {
-    path: "/login",
-    component: Login,
   },
 ];
 

@@ -10,6 +10,7 @@ export default function Table({
   api,
   beforeSend,
   afterReceive,
+  reload,
   ...props
 }: TableProps) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,10 +20,14 @@ export default function Table({
     by: searchParams.get("sort_by") || undefined,
   });
 
-  const { data, isLoading, isError, error, ...query } = useQuery(
+  const { data, isLoading, isError, error, refetch, ...query } = useQuery(
     [name, page, sort.type, sort.by],
     () => api({ page, sort_type: sort.type, sort_by: sort.by })
   );
+
+  useEffect(() => {
+    refetch();
+  }, [reload]);
 
   return (
     <div>
@@ -41,7 +46,7 @@ export default function Table({
         {...props}
       />
 
-      <div className="my-6 flex justify-center">
+      <div className="flex justify-center my-6">
         <Pagination
           currentPage={page}
           totalCount={data?.total}

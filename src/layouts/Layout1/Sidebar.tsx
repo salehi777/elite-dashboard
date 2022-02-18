@@ -5,11 +5,17 @@ import { Button } from "@chakra-ui/react";
 import { Avatar } from "components/Avatars";
 import styles from "./layout1.module.css";
 
+// recoil
+import authAtom from "store/auth";
+import { useSetRecoilState } from "recoil";
+
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import { ReactComponent as LogoutIcon } from "assets/icons/Logout.svg";
 import LampImage from "assets/images/lamp.png";
 
 export default function Sidebar() {
+  const setAuthState = useSetRecoilState(authAtom);
+
   return (
     <div className="h-full bg-white flex flex-col">
       <div className="px-8 py-8 flex items-center justify-center gap-4 text-xl">
@@ -59,18 +65,13 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div
-        className={clsx(
-          "mb-8 px-8 flex justify-between items-center",
-          styles.profile
-        )}
-      >
+      <div className="mb-8 px-8 flex justify-between items-center">
         <Avatar />
         <div>
           <div className="text-sm text-black mb-1">Easin Arafat</div>
           <div className="text-xs text-blackAlpha-600">Free Account</div>
         </div>
-        <i className="cursor-pointer">
+        <i className="cursor-pointer" onClick={() => setAuthState(null)}>
           <LogoutIcon />
         </i>
       </div>

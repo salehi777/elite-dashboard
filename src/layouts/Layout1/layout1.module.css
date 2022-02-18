@@ -7,7 +7,3 @@
 .list :global(a.active) path {
   fill: #030229;
 }
-
-.profile i path {
-  fill: #03022966;
-}

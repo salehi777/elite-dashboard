@@ -17,7 +17,16 @@ import { chakraTheme, tailwindTheme } from "utils/theme";
 import "react-toastify/dist/ReactToastify.css";
 import "assets/styles/index.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>

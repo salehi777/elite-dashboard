@@ -16,7 +16,7 @@ const Checkbox = (props: CheckboxProps) => (
   <CheckboxChakra
     size="lg"
     colorScheme="primary"
-    className={clsx("flex items-center justify-center", styles.checkbox)}
+    className="flex items-center justify-center"
     {...props}
   />
 );
@@ -29,6 +29,7 @@ export default function BaseTable({
   sort,
   setSort,
   selectable,
+  rowKey = "_id",
 }: BaseTableProps) {
   const [selectableItem, setSelectableItem] = useState<ISelectableItem>({
     all: false,
@@ -46,6 +47,7 @@ export default function BaseTable({
     if (records.length === data?.length) i.all = true;
     else if (records.length === 0) i.empty = true;
     setSelectableItem({ ...i, records });
+    selectable.onChange({ ...i, records });
   };
 
   const handleSort = (sortKey: string | undefined) => {
@@ -110,9 +112,11 @@ export default function BaseTable({
         })}
       </div>
 
-      {(data || [1, 2, 3, 4].map((id) => ({ id }))).map((record) => {
+      {(
+        data || (isLoading ? [1, 2, 3, 4] : []).map((i) => ({ [rowKey]: i }))
+      ).map((record) => {
         return (
-          <Skeleton key={record.id} isLoaded={!isLoading}>
+          <Skeleton key={record[rowKey]} isLoaded={!isLoading}>
             <div
               className="grid my-2 transition bg-white hover:shadow-md rounded-xl"
               style={{ gridTemplateColumns: calcGridTemplateColumns }}
@@ -132,10 +136,10 @@ export default function BaseTable({
                 />
               )}
               {columns.map((column) => {
-                const { title, render, ...rest } = column;
+                const { key, title, render, ...rest } = column;
                 return (
                   <div
-                    key={title}
+                    key={key}
                     className="h-[70px] p-1 flex items-center justify-center overflow-hidden"
                   >
                     {render(record)}

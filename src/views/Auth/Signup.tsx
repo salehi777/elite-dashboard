@@ -1,30 +1,26 @@
 import { Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import { Input } from "components/Inputs";
+import { Link, useNavigate } from "react-router-dom";
+import { Input, Checkbox } from "components/Inputs";
 import { useForm, FormProvider } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useMutation } from "react-query";
 
-// recoil
-import authAtom from "store/auth";
-import { useSetRecoilState } from "recoil";
-
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import { ReactComponent as GoogleIcon } from "assets/icons/Social-Google.svg";
 import { ReactComponent as FacebookIcon } from "assets/icons/Social-Facebook.svg";
-import LoginImage from "assets/images/login.png";
+import SignupImage from "assets/images/signup.png";
 
-import { signinApi } from "services";
+import { signupApi } from "services";
 
-export default function Login() {
+export default function Signup() {
   const methods = useForm();
-  const setAuthState = useSetRecoilState(authAtom);
+  const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation((data: any) => {
-    return signinApi(data)
+    return signupApi(data)
       .then((res) => {
-        setAuthState(res);
-        toast.success("Login was successful");
+        navigate("/login");
+        toast.success("Signup was successful");
       })
       .catch(() => {});
   });
@@ -38,7 +34,7 @@ export default function Login() {
           <i>
             <LogoIcon />
           </i>
-          <h1 className="my-12 text-2xl">Log in</h1>
+          <h1 className="my-6 text-2xl">Sign Up</h1>
 
           <div className="flex gap-4">
             <Button leftIcon={<GoogleIcon />} className="grow !font-normal">
@@ -49,7 +45,7 @@ export default function Login() {
             </Button>
           </div>
 
-          <div className="flex items-center mt-12 mb-10">
+          <div className="flex items-center mt-6 mb-4">
             <h1 className="mr-3 border border-b-0 grow" />
             Or
             <h1 className="ml-3 border border-b-0 grow" />
@@ -57,6 +53,18 @@ export default function Login() {
 
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
+              <Input
+                label="First Name"
+                name="first_name"
+                rules={{ required: true }}
+                placeholder="first name"
+              />
+              <Input
+                label="Last Name"
+                name="last_name"
+                rules={{ required: true }}
+                placeholder="last name"
+              />
               <Input
                 label="Email Address"
                 name="email"
@@ -72,11 +80,29 @@ export default function Login() {
                 placeholder="********"
               />
 
-              <div className="flex justify-end mt-3">
-                <Link to="/reset" className="text-primary-500">
-                  Reset Password?
+              <Checkbox
+                name="agreed_terms"
+                rules={{ required: true }}
+                className="text-left"
+              >
+                By creating an account you agree to the{" "}
+                <Link
+                  to="/terms_of_use"
+                  className="underline text-primary-500"
+                  target="_blank"
+                >
+                  terms of use
+                </Link>{" "}
+                and our{" "}
+                <Link
+                  to="/privacy_policy"
+                  className="underline text-primary-500"
+                  target="_blank"
+                >
+                  privacy policy
                 </Link>
-              </div>
+                .
+              </Checkbox>
 
               <Button
                 colorScheme="primary"
@@ -85,20 +111,20 @@ export default function Login() {
                 isLoading={isLoading}
                 loadingText="Submitting"
               >
-                Login
+                Create account
               </Button>
             </form>
           </FormProvider>
 
           <div className="mt-6">
-            <span>Don't have account yet? </span>
-            <Link to="/signup" className="text-primary-500">
-              New Account
+            <span>Already have an account? </span>
+            <Link to="/login" className="text-primary-500">
+              Log in
             </Link>
           </div>
         </div>
         <div className="w-2/3 p-4">
-          <img src={LoginImage} className="mx-auto" />
+          <img src={SignupImage} className="mx-auto" />
         </div>
       </div>
     </main>

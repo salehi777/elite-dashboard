@@ -1,6 +1,6 @@
 export interface IColumn {
   key: any;
-  title: string;
+  title: string | JSX.Element;
   sortKey?: string;
   render: (record: any) => JSX.Element;
 }
@@ -30,6 +30,7 @@ export type BaseTableProps = {
   sort: SortObject;
   setSort: (sort: SortObject) => void;
   selectable?: any;
+  rowKey?: string;
 };
 
 export type TableProps = {
@@ -37,9 +38,11 @@ export type TableProps = {
   api: (params: ApiParams) => Promise<any>;
   beforeSend?: (params: {}) => {};
   afterReceive?: (res: any) => void;
+  reload?: boolean;
   columns: IColumn[];
   gridTemplateColumns: string;
   selectable?: any;
+  rowKey?: string;
 };
 
 export type PaginationProps = {

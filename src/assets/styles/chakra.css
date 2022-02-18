@@ -1,0 +1,26 @@
+button.chakra-button {
+  border-radius: 10px;
+  height: auto;
+  padding: 15px 0;
+}
+
+svg[viewBox] {
+  display: inline;
+}
+
+.chakra-checkbox__control[class] {
+  border: 1px solid #b3b3bf;
+}
+
+.chakra-form-control {
+  margin-bottom: 22px;
+}
+.chakra-form__label[class] {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.chakra-form__error-message[class] {
+  margin-top: 5px;
+  position: absolute;
+  font-size: 12px;
+}

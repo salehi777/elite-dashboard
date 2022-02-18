@@ -1,20 +1,16 @@
 import { useState } from "react";
-import { Controller, useFormContext, RegisterOptions } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import {
-  Input as InputChakra,
-  InputProps as InputPropsChakra,
-  InputGroup,
-  InputRightElement,
   FormControl,
   FormLabel,
   FormErrorMessage,
+  Input as InputChakra,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
+import { InputProps } from "./types";
 
-interface InputProps extends InputPropsChakra {
-  label?: string | React.ReactElement;
-  name: string;
-  rules?: { required?: boolean | string | { value: boolean; message: string } };
-}
+import { ReactComponent as HideIcon } from "assets/icons/Hide.svg";
 
 export default function Input({
   label,
@@ -46,6 +42,7 @@ export default function Input({
               id={name}
               name={name}
               type={show ? "text" : type}
+              className="!border-0 !bg-gray-100 !py-3 !h-auto"
               onChange={(e) => {
                 field.onChange(e.target.value);
               }}
@@ -53,7 +50,9 @@ export default function Input({
             />
             {type === "password" && (
               <InputRightElement width="4.5rem">
-                <i onClick={handleClick}>{show ? "Hide" : "Show"}</i>
+                <i onClick={handleClick} className="flex mt-2 cursor-pointer">
+                  {show ? "Hide" : <HideIcon />}
+                </i>
               </InputRightElement>
             )}
           </InputGroup>

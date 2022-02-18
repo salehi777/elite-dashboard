@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./chakra.css";
+
 #root {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -11,20 +13,31 @@
   background: #fafafa;
 }
 
-button.chakra-button {
-  border-radius: 10px;
+/* ----------------------------- START Toastify ----------------------------- */
+.Toastify {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
 }
-
-svg[viewBox] {
-  display: inline;
+.Toastify__toast-body {
+  white-space: pre-line;
 }
-
-.chakra-form-control {
-  margin-bottom: 12px;
+.Toastify__toast-container {
+  width: unset;
 }
-.chakra-form__label[class] {
-  margin-bottom: 5px;
+.Toastify__toast-icon {
+  width: 30px;
 }
-.chakra-form__error-message[class] {
-  margin-top: 5px;
+.Toastify__progress-bar--info {
+  background: #56b0e3;
 }
+.Toastify__progress-bar--success {
+  background: #00bb99;
+}
+.Toastify__progress-bar--warning {
+  background: #fab400;
+}
+.Toastify__progress-bar--error {
+  background: #ff5939;
+}
+/* ----------------------------- END Toastify ----------------------------- */

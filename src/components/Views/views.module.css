@@ -1,0 +1,9 @@
+.menulist {
+  padding: 0 10px !important;
+  min-width: 150px !important;
+}
+.menulist > button {
+  margin: 10px 0;
+  border-radius: 5px;
+  padding: 7px 10px;
+}
