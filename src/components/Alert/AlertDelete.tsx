@@ -60,6 +60,7 @@ export default function AlertDelete({
               onClick={handleDelete}
               ml={3}
               className="!px-4"
+              isLoading={loading}
             >
               Delete
             </Button>
