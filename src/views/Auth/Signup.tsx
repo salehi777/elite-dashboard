@@ -5,6 +5,10 @@ import { useForm, FormProvider } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useMutation } from "react-query";
 
+// recoil
+import authAtom from "store/auth";
+import { useSetRecoilState } from "recoil";
+
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import { ReactComponent as GoogleIcon } from "assets/icons/Social-Google.svg";
 import { ReactComponent as FacebookIcon } from "assets/icons/Social-Facebook.svg";
@@ -14,13 +18,15 @@ import { signupApi } from "services";
 
 export default function Signup() {
   const methods = useForm();
+  const setAuthState = useSetRecoilState(authAtom);
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation((data: any) => {
     return signupApi(data)
       .then((res) => {
-        navigate("/login");
+        setAuthState(res);
         toast.success("Signup was successful");
+        setTimeout(() => window.location.reload(), 0);
       })
       .catch(() => {});
   });
