@@ -1,23 +1,24 @@
-import { useMemo, useState } from "react";
-import Table from "components/Table/Table";
-import { IColumn, ISelectableItem } from "components/Table/types";
-import Menu from "components/Menu";
-import ViewId from "components/Views/ViewId";
-import AlertDelete from "components/Alert/AlertDelete";
-import { toast } from "react-toastify";
-import moment from "moment";
-import InvoiceStatus from "components/Status/InvoiceStatus";
-import { Spinner } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import { Skeleton } from "@chakra-ui/react";
+import InvoiceForm from "./InvoiceForm";
 
-import { ReactComponent as StarIcon } from "assets/icons/Star.svg";
-import { ReactComponent as Star2Icon } from "assets/icons/Star-2.svg";
-import { ReactComponent as EditIcon } from "assets/icons/Edit.svg";
-import { ReactComponent as DeleteIcon } from "assets/icons/Delete.svg";
-import { ReactComponent as Delete2Icon } from "assets/icons/Delete-2.svg";
-
-import { getInvoices, toggleInvoice, deleteInvoice } from "services";
+import { getInvoice } from "services";
 
 export default function EditInvoice() {
-  return <div>Edit invoice</div>;
+  const { _id } = useParams();
+
+  const { data, isLoading } = useQuery(["view-invoice", _id], () =>
+    getInvoice(_id)
+  );
+
+  return isLoading ? (
+    <div className="h-full">
+      <Skeleton className="mb-2 h-1/4" />
+      <Skeleton className="mb-2 h-1/4" />
+      <Skeleton className="mb-2 h-1/4" />
+    </div>
+  ) : (
+    <InvoiceForm invoiceData={data} />
+  );
 }

@@ -3,23 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import Table from "components/Table/Table";
 import { IColumn, ISelectableItem } from "components/Table/types";
 import Menu from "components/Menu";
-import ViewId from "components/Views/ViewId";
 import AlertDelete from "components/Alert/AlertDelete";
 import { toast } from "react-toastify";
 import moment from "moment";
-import InvoiceStatus from "components/Status/InvoiceStatus";
+import GenderStatus from "components/Status/GenderStatus";
 import { Spinner, Button } from "@chakra-ui/react";
 
-import { ReactComponent as StarIcon } from "assets/icons/Star.svg";
-import { ReactComponent as Star2Icon } from "assets/icons/Star-2.svg";
 import { ReactComponent as EditIcon } from "assets/icons/Edit.svg";
 import { ReactComponent as DeleteIcon } from "assets/icons/Delete.svg";
-import { ReactComponent as Delete2Icon } from "assets/icons/Delete-2.svg";
 import { ReactComponent as PlusIcon } from "assets/icons/Plus.svg";
 
-import { getInvoices, toggleInvoice, deleteInvoice } from "services";
+import { getInvoices, deleteInvoice } from "services";
 
-export default function Invoice() {
+export default function Analytics() {
   const navigate = useNavigate();
 
   const [selectableItem, setSelectableItem] = useState<ISelectableItem>({
@@ -29,19 +25,12 @@ export default function Invoice() {
   });
 
   const [reload, setReload] = useState(false);
-  const [toggleLoading, setToggleLoading] = useState("");
 
   const [itemToChange, setItemToChange] = useState<any>();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const columns = useMemo<IColumn[]>(
     () => [
-      {
-        key: "id",
-        title: "Invoice Id",
-        sortKey: "_id",
-        render: (record) => <ViewId _id={record._id} />,
-      },
       {
         key: "name",
         title: "Name",
@@ -59,60 +48,22 @@ export default function Invoice() {
         render: (record) => <div>{record.email}</div>,
       },
       {
-        key: "date",
-        title: "Date",
+        key: "phone_number",
+        title: "Phone Number",
         sortKey: "createdAt",
         render: (record) => (
           <div>{moment(record.createdAt).format("YYYY-MM-DD")}</div>
         ),
       },
       {
-        key: "status",
-        title: "Status",
+        key: "Gender",
+        title: "Gender",
         sortKey: "status",
-        render: (record) => <InvoiceStatus status={record.status} />,
-      },
-      {
-        key: "fav",
-        title: "",
-        render: (record) => (
-          <div
-            className="cursor-pointer"
-            onClick={() => {
-              setToggleLoading(record._id);
-              toggleInvoice(record._id)
-                .then(() => {
-                  setReload((prev) => !prev);
-                  setToggleLoading("");
-                })
-                .catch(() => setToggleLoading(""));
-            }}
-          >
-            {toggleLoading === record._id ? (
-              <Spinner />
-            ) : record.fav ? (
-              <StarIcon />
-            ) : (
-              <Star2Icon />
-            )}
-          </div>
-        ),
+        render: (record) => <GenderStatus gender={record.gender} />,
       },
       {
         key: "actions",
-        title: (
-          <Delete2Icon
-            className="cursor-pointer"
-            onClick={() => {
-              if (selectableItem.records.length === 0) {
-                toast.warn("Plase Select at least one row");
-              } else {
-                const ids = selectableItem.records.map((item) => item._id);
-                console.log("ids", ids);
-              }
-            }}
-          />
-        ),
+        title: "",
         render: (record) => (
           <Menu
             options={[
@@ -138,7 +89,7 @@ export default function Invoice() {
         ),
       },
     ],
-    [selectableItem, toggleLoading]
+    [selectableItem]
   );
 
   const selectable = {
@@ -159,15 +110,15 @@ export default function Invoice() {
 
   const buttons = [
     <Link to="/invoice/add" className="flex">
-      <Button colorScheme="primary" className="!py-2">
+      <Button colorScheme="primary" className="!py-3">
         <PlusIcon />
-        &nbsp; Add New
+        &nbsp; Add Customer
       </Button>
     </Link>,
   ];
 
   return (
-    <div>
+    <>
       <AlertDelete
         title="Delete Invoice"
         itemToRemove={itemToChange}
@@ -175,19 +126,21 @@ export default function Invoice() {
         onClose={() => setIsDeleteOpen(false)}
         onDelete={handleDelete}
       />
+      <div className="flex flex-col h-full lg:flex-row">
+        <div className="lg:grow">
+          <h1 className="mb-8 text-2xl font-bold">Customer List</h1>
 
-      <h1 className="mb-8 text-2xl font-bold">Invoice List</h1>
-
-      <Table
-        name="invoices"
-        api={getInvoices}
-        columns={columns}
-        gridTemplateColumns="85px 1fr 1fr 1fr 1fr 50px 50px"
-        selectable={selectable}
-        reload={reload}
-        showSearch={true}
-        buttons={buttons}
-      />
-    </div>
+          <Table
+            name="invoices"
+            api={getInvoices}
+            columns={columns}
+            gridTemplateColumns="1fr 1fr 1fr 1fr 50px"
+            reload={reload}
+            buttons={buttons}
+          />
+        </div>
+        <div className="bg-white lg:ml-8 lg:-m-8 lg:w-72">info</div>
+      </div>
+    </>
   );
 }

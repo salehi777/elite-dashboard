@@ -22,7 +22,7 @@ interface MenuProps {
 
 export default function MenuComponent({ options }: MenuProps) {
   return (
-    <Menu>
+    <Menu placement="bottom-end">
       <MenuButton
         as={IconButton}
         aria-label="Options"

@@ -1,4 +1,5 @@
 import Dashboard from "views/Dashboard";
+import Analytics from "views/Analytics";
 import Invoice from "views/Invoice";
 import AddInvoice from "views/Invoice/AddInvoice";
 import EditInvoice from "views/Invoice/EditInvoice";
@@ -12,7 +13,7 @@ const routes: IRoute[] = [
   },
   {
     path: "/analytics",
-    component: Dashboard,
+    component: Analytics,
   },
   {
     path: "/invoice",

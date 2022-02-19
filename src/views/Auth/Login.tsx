@@ -25,6 +25,7 @@ export default function Login() {
       .then((res) => {
         setAuthState(res);
         toast.success("Login was successful");
+        setTimeout(() => window.location.reload(), 0);
       })
       .catch(() => {});
   });
