@@ -19,14 +19,13 @@ import { signupApi } from "services";
 export default function Signup() {
   const methods = useForm();
   const setAuthState = useSetRecoilState(authAtom);
-  const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation((data: any) => {
     return signupApi(data)
       .then((res) => {
         setAuthState(res);
+        window.location.reload();
         toast.success("Signup was successful");
-        setTimeout(() => window.location.reload(), 0);
       })
       .catch(() => {});
   });

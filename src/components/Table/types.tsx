@@ -39,6 +39,7 @@ export type BaseTableProps = {
   setSort: (sort: SortObject) => void;
   selectable?: any;
   rowKey?: string;
+  onRowClick?: (record: any) => void;
 };
 
 export type TableProps = {
@@ -53,6 +54,7 @@ export type TableProps = {
   rowKey?: string;
   showSearch?: boolean;
   buttons?: JSX.Element[];
+  onRowClick?: (record: any) => void;
 };
 
 export type PaginationProps = {

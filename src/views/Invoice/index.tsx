@@ -158,7 +158,7 @@ export default function Invoice() {
   };
 
   const buttons = [
-    <Link to="/invoice/add" className="flex">
+    <Link key="1" to="/invoice/add" className="flex">
       <Button colorScheme="primary" className="!py-2">
         <PlusIcon />
         &nbsp; Add New

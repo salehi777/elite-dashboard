@@ -24,8 +24,8 @@ export default function Login() {
     return signinApi(data)
       .then((res) => {
         setAuthState(res);
+        window.location.reload();
         toast.success("Login was successful");
-        setTimeout(() => window.location.reload(), 0);
       })
       .catch(() => {});
   });

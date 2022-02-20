@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import clsx from "clsx";
 import {
   Checkbox as CheckboxChakra,
   CheckboxProps,
   Skeleton,
 } from "@chakra-ui/react";
-import styles from "./table.module.css";
 import { BaseTableProps, ISelectableItem } from "./types";
 
 import { ReactComponent as SortIcon } from "assets/icons/Sort.svg";
@@ -30,6 +29,7 @@ export default function BaseTable({
   setSort,
   selectable,
   rowKey = "_id",
+  onRowClick,
 }: BaseTableProps) {
   const [selectableItem, setSelectableItem] = useState<ISelectableItem>({
     all: false,
@@ -118,8 +118,12 @@ export default function BaseTable({
         return (
           <Skeleton key={record[rowKey]} isLoaded={!isLoading}>
             <div
-              className="grid my-2 transition bg-white hover:shadow-md rounded-xl"
+              className={clsx(
+                "grid my-2 transition bg-white hover:shadow-md rounded-xl",
+                onRowClick && "cursor-pointer"
+              )}
               style={{ gridTemplateColumns: calcGridTemplateColumns }}
+              onClick={() => onRowClick?.(record)}
             >
               {selectable && (
                 <Checkbox

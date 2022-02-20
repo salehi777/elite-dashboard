@@ -14,7 +14,7 @@ interface MenuProps {
   options: Array<{
     icon: JSX.Element;
     title: string;
-    onClick?: () => void;
+    onClick?: (e: any) => void;
     color?: string;
     bgcolor?: string;
   }>;
@@ -28,13 +28,14 @@ export default function MenuComponent({ options }: MenuProps) {
         aria-label="Options"
         icon={<MenuIcon />}
         variant="ghost"
+        onClick={(e) => e.stopPropagation()}
       />
       <MenuList className={clsx("text-sm", styles.menulist)}>
         {options.map((option) => (
           <MenuItem
             key={option.title}
             icon={option.icon}
-            onClick={() => option.onClick?.()}
+            onClick={option.onClick}
             style={{ color: option.color, background: option.bgcolor }}
           >
             {option.title}

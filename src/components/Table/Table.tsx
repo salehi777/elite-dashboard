@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import BaseTable from "./BaseTable";
@@ -12,6 +12,7 @@ export default function Table({
   beforeSend,
   afterReceive,
   reload,
+  onRowClick,
   ...props
 }: TableProps) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,9 +23,14 @@ export default function Table({
     by: searchParams.get("sort_by") || undefined,
   });
 
-  const { data, isLoading, isError, error, refetch, ...query } = useQuery(
+  const { data, isLoading, refetch } = useQuery(
     [name, page, search, sort.type, sort.by],
-    () => api({ page, search, sort_type: sort.type, sort_by: sort.by })
+    () => api({ page, search, sort_type: sort.type, sort_by: sort.by }),
+    {
+      onSuccess: (data) => {
+        onRowClick?.(data?.items?.[0]);
+      },
+    }
   );
 
   useEffect(() => {
@@ -60,6 +66,7 @@ export default function Table({
           });
           setSort(newSort);
         }}
+        onRowClick={onRowClick}
         {...props}
       />
 

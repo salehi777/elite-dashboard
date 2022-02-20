@@ -1,37 +1,30 @@
 import { useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm, FormProvider, useFieldArray } from "react-hook-form";
+import { Button } from "@chakra-ui/react";
 import Table from "components/Table/Table";
-import { useMutation } from "react-query";
 import { IColumn } from "components/Table/types";
 import Menu from "components/Menu";
 import AlertDelete from "components/Alert/AlertDelete";
 import { toast } from "react-toastify";
-import moment from "moment";
 import GenderStatus from "components/Status/GenderStatus";
-import { Spinner, Button, IconButton } from "@chakra-ui/react";
-import { Input } from "components/Inputs";
+import { Avatar } from "components/Avatars";
+import AnalyticsForm from "./AnalyticsForm";
+import AnalyticsDetail from "./AnalyticsDetail";
 
 import { ReactComponent as EditIcon } from "assets/icons/Edit.svg";
 import { ReactComponent as DeleteIcon } from "assets/icons/Delete.svg";
 import { ReactComponent as PlusIcon } from "assets/icons/Plus.svg";
-import { ReactComponent as CloseIcon } from "assets/icons/Close.svg";
 
-import {
-  getAnalyticss,
-  deleteAnalytics,
-  createAnalytics,
-  updateAnalytics,
-} from "services";
-import Uploader from "components/Uploader";
+import { getAnalyticss, deleteAnalytics } from "services";
 
 export default function Analytics() {
-  const navigate = useNavigate();
-
   const [reload, setReload] = useState(false);
 
   const [itemToChange, setItemToChange] = useState<any>();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const [rightSide, setRightSide] = useState<{ type: string; record?: any }>({
+    type: "",
+  });
 
   const columns = useMemo<IColumn[]>(
     () => [
@@ -40,8 +33,14 @@ export default function Analytics() {
         title: "Name",
         sortKey: "name",
         render: (record) => (
-          <div>
-            {record.first_name} {record.last_name}
+          <div className="flex items-center">
+            <Avatar
+              src={`${process.env.REACT_APP_BASE_URL_FILES}/${record.image}`}
+              className="mr-1"
+            />
+            <span>
+              {record.first_name} {record.last_name}
+            </span>
           </div>
         ),
       },
@@ -72,7 +71,10 @@ export default function Analytics() {
               {
                 icon: <EditIcon />,
                 title: "Edit",
-                onClick: () => navigate(`/analytics/edit/${record._id}`),
+                onClick: (e: any) => {
+                  e.stopPropagation();
+                  setRightSide({ type: "edit", record });
+                },
                 color: "#5B93FF",
                 bgcolor: "#5B93FF1a",
               },
@@ -104,31 +106,13 @@ export default function Analytics() {
       .catch(() => {});
   };
 
-  // form
-  const methods = useForm();
-
-  // const { mutate, isLoading } = useMutation((data: any) => {
-  //   if (invoiceData) {
-  //     return updateInvoice(invoiceData?._id, data)
-  //       .then((res) => {
-  //         toast.success("Invoice updated successful");
-  //         navigate("/invoice");
-  //       })
-  //       .catch(() => {});
-  //   } else {
-  //     return createInvoice(data)
-  //       .then((res) => {
-  //         toast.success("Invoice created successful");
-  //         navigate("/invoice");
-  //       })
-  //       .catch(() => {});
-  //   }
-  // });
-
-  const onSubmit = (data: any) => console.log("data", data);
-
   const buttons = [
-    <Button colorScheme="primary" className="!py-3">
+    <Button
+      key="1"
+      colorScheme="primary"
+      className="!py-3"
+      onClick={() => setRightSide({ type: "add" })}
+    >
       <PlusIcon />
       &nbsp; Add Customer
     </Button>,
@@ -154,65 +138,26 @@ export default function Analytics() {
             gridTemplateColumns="1fr 1fr 1fr 100px 50px"
             reload={reload}
             buttons={buttons}
+            onRowClick={(record: any) =>
+              setRightSide({ type: "detail", record })
+            }
           />
         </div>
 
-        {/* <div className="h-screen px-4 py-6 overflow-y-auto bg-white lg:ml-8 lg:-m-8 lg:w-72">
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-              <h1 className="flex justify-between mb-8 text-xl font-bold">
-                <span>Add Customer</span>
-                <IconButton
-                  aria-label="close form"
-                  className="!rounded-full !bg-red-200"
-                  icon={<CloseIcon color="red" />}
-                />
-              </h1>
-
-              <Uploader />
-
-              <div className="flex flex-wrap mt-2 -mx-2">
-                <div className="w-full px-2">
-                  <Input
-                    label="First Name"
-                    name="first_name"
-                    rules={{ required: true }}
-                  />
-                </div>
-                <div className="w-full px-2">
-                  <Input
-                    label="Last Name"
-                    name="last_name"
-                    rules={{ required: true }}
-                  />
-                </div>
-                <div className="w-full px-2">
-                  <Input
-                    label="Email"
-                    name="email"
-                    rules={{ required: true }}
-                  />
-                </div>
-                <div className="w-full px-2">
-                  <Input
-                    label="Phone Number"
-                    name="phoneNumber"
-                    rules={{ required: true }}
-                  />
-                </div>
-              </div>
-
-              <Button
-                colorScheme="primary"
-                className="!w-full mt-6"
-                type="submit"
-                // isLoading={isLoading}
-              >
-                Add Customer
-              </Button>
-            </form>
-          </FormProvider>
-        </div> */}
+        {rightSide.type && (
+          <div className="h-screen px-4 py-6 overflow-y-auto bg-white lg:ml-8 lg:-m-8 lg:w-72">
+            {rightSide.type === "detail" ? (
+              <AnalyticsDetail record={rightSide.record} />
+            ) : (
+              <AnalyticsForm
+                key={rightSide.type + rightSide.record?._id}
+                setReload={setReload}
+                onClose={() => setRightSide({ type: "", record: null })}
+                record={rightSide.record}
+              />
+            )}
+          </div>
+        )}
       </div>
     </>
   );

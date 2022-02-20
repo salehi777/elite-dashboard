@@ -9,10 +9,10 @@ import { ReactComponent as WorkIcon } from "assets/icons/Work.svg";
 export default function Dashboard() {
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-8">Dashboard</h1>
+      <h1 className="mb-8 text-2xl font-bold">Dashboard</h1>
 
       <div className="flex flex-col gap-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
           <Stat
             count={178}
             title="Save Products"

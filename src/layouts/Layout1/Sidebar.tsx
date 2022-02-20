@@ -17,8 +17,8 @@ export default function Sidebar() {
   const setAuthState = useSetRecoilState(authAtom);
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-8 py-8 flex items-center justify-center gap-4 text-xl">
+    <div className="flex flex-col h-full bg-white">
+      <div className="flex items-center justify-center gap-4 px-8 py-8 text-xl">
         <LogoIcon />
         <span>Base</span>
       </div>
@@ -42,7 +42,7 @@ export default function Sidebar() {
             >
               {({ isActive }) => (
                 <>
-                  <i className="mr-3 flex">
+                  <i className="flex mr-3">
                     <item.icon />
                   </i>
                   {item.title}
@@ -58,17 +58,17 @@ export default function Sidebar() {
       <div className="flex flex-col justify-center px-8">
         <img src={LampImage} />
 
-        <div className="flex justify-center relative -top-14">
+        <div className="relative flex justify-center -top-14">
           <Button colorScheme="primary" className="!w-10/12">
             Upgrade Now
           </Button>
         </div>
       </div>
 
-      <div className="mb-8 px-8 flex justify-between items-center">
+      <div className="flex items-center justify-between px-8 mb-8">
         <Avatar />
         <div>
-          <div className="text-sm text-black mb-1">Easin Arafat</div>
+          <div className="mb-1 text-sm text-black">Easin Arafat</div>
           <div className="text-xs text-blackAlpha-600">Free Account</div>
         </div>
         <i className="cursor-pointer" onClick={() => setAuthState(null)}>
