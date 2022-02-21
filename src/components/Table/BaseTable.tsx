@@ -84,7 +84,7 @@ export default function BaseTable({
             <div
               key={key}
               className={clsx(
-                "h-[50px] p-1 flex items-center justify-center text-sm font-normal",
+                "h-[50px] p-1 flex items-center text-sm font-normal",
                 sortKey && "cursor-pointer"
               )}
               onClick={() => handleSort(sortKey)}
@@ -140,11 +140,14 @@ export default function BaseTable({
                 />
               )}
               {columns.map((column) => {
-                const { key, title, render, ...rest } = column;
+                const { key, title, render, className, ...rest } = column;
                 return (
                   <div
                     key={key}
-                    className="h-[70px] p-1 flex items-center justify-center overflow-hidden"
+                    className={clsx(
+                      "h-[70px] p-1 flex items-center overflow-hidden",
+                      className
+                    )}
                   >
                     {render(record)}
                   </div>

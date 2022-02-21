@@ -9,10 +9,10 @@ export default function TableHeader({
   buttons,
 }: TableHeaderProps) {
   return (
-    <div className="flex justify-end">
-      {showSearch && <TableSearch search={search} setSearch={setSearch} />}
-
-      <div className="w-4" />
+    <div className="flex flex-col justify-end md:flex-row">
+      <div className="mb-4 md:mb-0 md:mr-4">
+        {showSearch && <TableSearch search={search} setSearch={setSearch} />}
+      </div>
 
       {buttons}
     </div>

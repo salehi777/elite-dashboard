@@ -63,7 +63,10 @@ export default function AnalyticsForm({
           />
         </h1>
 
-        <Uploader setFilename={(res) => setImage(res.filename)} />
+        <Uploader
+          setFilename={(res) => setImage(res.filename)}
+          defaultValue={record?.image}
+        />
 
         <div className="flex flex-wrap mt-2 -mx-2">
           <div className="w-full px-2">

@@ -2,6 +2,7 @@ export interface IColumn {
   key: any;
   title: string | JSX.Element;
   sortKey?: string;
+  className?: string;
   render: (record: any) => JSX.Element;
 }
 

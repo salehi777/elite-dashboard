@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import { sidebarLinks } from "./Links";
-import { Button } from "@chakra-ui/react";
+import { Button, IconButton } from "@chakra-ui/react";
 import { Avatar } from "components/Avatars";
 import styles from "./layout1.module.css";
 
@@ -11,13 +11,24 @@ import { useSetRecoilState } from "recoil";
 
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import { ReactComponent as LogoutIcon } from "assets/icons/Logout.svg";
+import { ReactComponent as CloseIcon } from "assets/icons/Close.svg";
 import LampImage from "assets/images/lamp.png";
 
-export default function Sidebar() {
+type SidebarProps = {
+  onClose?: () => void;
+};
+
+export default function Sidebar({ onClose }: SidebarProps) {
   const setAuthState = useSetRecoilState(authAtom);
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className="relative flex flex-col h-full bg-white">
+      <IconButton
+        aria-label="close form"
+        className="!rounded-full !bg-red-200 !absolute top-2 left-2 lg:!hidden"
+        icon={<CloseIcon color="red" />}
+        onClick={onClose}
+      />
       <div className="flex items-center justify-center gap-4 px-8 py-8 text-xl">
         <LogoIcon />
         <span>Base</span>
@@ -39,6 +50,7 @@ export default function Sidebar() {
                   ? "linear-gradient(90deg, #ACA9FF4d 0%, #aca9ff1a 90%)"
                   : "transparent",
               })}
+              onClick={onClose}
             >
               {({ isActive }) => (
                 <>
@@ -55,7 +67,7 @@ export default function Sidebar() {
 
       <div className="grow" />
 
-      <div className="flex flex-col justify-center px-8">
+      <div className="flex flex-col justify-center px-8 max-w-[250px] mx-auto">
         <img src={LampImage} />
 
         <div className="relative flex justify-center -top-14">
@@ -65,7 +77,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between px-8 mb-8">
+      <div className="flex items-center justify-between px-8 pb-8">
         <Avatar />
         <div>
           <div className="mb-1 text-sm text-black">Easin Arafat</div>
