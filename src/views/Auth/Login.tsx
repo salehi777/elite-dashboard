@@ -74,7 +74,7 @@ export default function Login() {
               />
 
               <div className="flex justify-end mt-3">
-                <Link to="/reset" className="text-primary-500">
+                <Link to="/recovery" className="text-primary-500">
                   Reset Password?
                 </Link>
               </div>

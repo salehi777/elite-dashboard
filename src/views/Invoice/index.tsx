@@ -16,6 +16,8 @@ import { ReactComponent as EditIcon } from "assets/icons/Edit.svg";
 import { ReactComponent as DeleteIcon } from "assets/icons/Delete.svg";
 import { ReactComponent as Delete2Icon } from "assets/icons/Delete-2.svg";
 import { ReactComponent as PlusIcon } from "assets/icons/Plus.svg";
+import { ReactComponent as Calendar2Icon } from "assets/icons/Calendar-2.svg";
+import { ReactComponent as Message2Icon } from "assets/icons/Message-2.svg";
 
 import { getInvoices, toggleInvoice, deleteInvoice } from "services";
 
@@ -37,13 +39,13 @@ export default function Invoice() {
   const columns = useMemo<IColumn[]>(
     () => [
       {
-        key: "id",
+        key: "Invoice Id",
         title: "Invoice Id",
         sortKey: "_id",
         render: (record) => <ViewId _id={record._id} />,
       },
       {
-        key: "name",
+        key: "Name",
         title: "Name",
         sortKey: "name",
         render: (record) => (
@@ -53,21 +55,29 @@ export default function Invoice() {
         ),
       },
       {
-        key: "email",
+        key: "Email",
         title: "Email",
         sortKey: "email",
-        render: (record) => <div>{record.email}</div>,
-      },
-      {
-        key: "date",
-        title: "Date",
-        sortKey: "createdAt",
         render: (record) => (
-          <div>{moment(record.createdAt).format("YYYY-MM-DD")}</div>
+          <div className="flex items-center">
+            <Message2Icon className="mr-2" />
+            <span>{record.email}</span>
+          </div>
         ),
       },
       {
-        key: "status",
+        key: "Date",
+        title: "Date",
+        sortKey: "createdAt",
+        render: (record) => (
+          <div className="flex items-center">
+            <Calendar2Icon className="mr-2" />
+            <span>{moment(record.createdAt).format("DD MMM, YYYY")}</span>
+          </div>
+        ),
+      },
+      {
+        key: "Status",
         title: "Status",
         sortKey: "status",
         render: (record) => <InvoiceStatus status={record.status} />,
@@ -99,7 +109,7 @@ export default function Invoice() {
         ),
       },
       {
-        key: "actions",
+        key: "Actions",
         title: (
           <Delete2Icon
             className="cursor-pointer"
@@ -183,6 +193,8 @@ export default function Invoice() {
         api={getInvoices}
         columns={columns}
         gridTemplateColumns="85px 1fr 1fr 1fr 1fr 50px 50px"
+        mobileColumnsKey={["Name", "Status", "Actions"]}
+        mobileGridTemplateColumns="1fr 1fr 50px"
         selectable={selectable}
         reload={reload}
         showSearch={true}

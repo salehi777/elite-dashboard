@@ -31,7 +31,7 @@ const config: {
 export default function InvoiceStatus({ status }: InvoiceStatusProps) {
   return (
     <div
-      className="w-full h-[45px] flex items-center justify-center"
+      className="w-10/12 h-[45px] flex items-center justify-center"
       style={{
         borderRadius: 22,
         color: config[status]?.color,

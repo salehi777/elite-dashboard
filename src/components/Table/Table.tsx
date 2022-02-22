@@ -9,10 +9,12 @@ import TableHeader from "./TableHeader";
 export default function Table({
   name,
   api,
+  dataSource,
   beforeSend,
   afterReceive,
   reload,
   onRowClick,
+  hidePagination,
   ...props
 }: TableProps) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,7 +27,7 @@ export default function Table({
 
   const { data, isLoading, refetch } = useQuery(
     [name, page, search, sort.type, sort.by],
-    () => api({ page, search, sort_type: sort.type, sort_by: sort.by }),
+    () => api?.({ page, search, sort_type: sort.type, sort_by: sort.by }),
     {
       onSuccess: (data) => {
         onRowClick?.(data?.items?.[0]);
@@ -54,7 +56,7 @@ export default function Table({
       />
 
       <BaseTable
-        data={data?.items}
+        data={api ? data?.items : dataSource?.items}
         isLoading={isLoading}
         sort={sort}
         setSort={(newSort) => {
@@ -70,22 +72,24 @@ export default function Table({
         {...props}
       />
 
-      <div className="flex justify-center my-6">
-        <Pagination
-          currentPage={page}
-          totalCount={data?.total}
-          pageSize={data?.per_page}
-          onPageChange={(newPage) => {
-            setSearchParams({
-              page: String(newPage),
-              search,
-              sort_type: sort.type || "",
-              sort_by: sort.by || "",
-            });
-            setPage(newPage);
-          }}
-        />
-      </div>
+      {!hidePagination && (
+        <div className="flex justify-center my-6">
+          <Pagination
+            currentPage={page}
+            totalCount={data?.total}
+            pageSize={data?.per_page}
+            onPageChange={(newPage) => {
+              setSearchParams({
+                page: String(newPage),
+                search,
+                sort_type: sort.type || "",
+                sort_by: sort.by || "",
+              });
+              setPage(newPage);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

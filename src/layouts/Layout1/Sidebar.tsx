@@ -4,10 +4,11 @@ import { sidebarLinks } from "./Links";
 import { Button, IconButton } from "@chakra-ui/react";
 import { Avatar } from "components/Avatars";
 import styles from "./layout1.module.css";
+import { toast } from "react-toastify";
 
 // recoil
 import authAtom from "store/auth";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import { ReactComponent as LogoutIcon } from "assets/icons/Logout.svg";
@@ -19,10 +20,10 @@ type SidebarProps = {
 };
 
 export default function Sidebar({ onClose }: SidebarProps) {
-  const setAuthState = useSetRecoilState(authAtom);
+  const [authState, setAuthState] = useRecoilState(authAtom);
 
   return (
-    <div className="relative flex flex-col h-full bg-white">
+    <div className="relative flex flex-col bg-white lg:min-h-screen">
       <IconButton
         aria-label="close form"
         className="!rounded-full !bg-red-200 !absolute top-2 left-2 lg:!hidden"
@@ -65,22 +66,31 @@ export default function Sidebar({ onClose }: SidebarProps) {
         ))}
       </ul>
 
-      <div className="grow" />
+      <div className="my-3 grow" />
 
       <div className="flex flex-col justify-center px-8 max-w-[250px] mx-auto">
         <img src={LampImage} />
 
         <div className="relative flex justify-center -top-14">
-          <Button colorScheme="primary" className="!w-10/12">
+          <Button
+            colorScheme="primary"
+            className="!w-10/12"
+            onClick={() => toast.info("Plase contact to our admin")}
+          >
             Upgrade Now
           </Button>
         </div>
       </div>
 
       <div className="flex items-center justify-between px-8 pb-8">
-        <Avatar />
+        <Avatar
+          src={`${process.env.REACT_APP_BASE_URL_FILES}/${authState?.user?.image}`}
+        />
+
         <div>
-          <div className="mb-1 text-sm text-black">Easin Arafat</div>
+          <div className="mb-1 text-sm text-black">
+            {authState?.user?.first_name} {authState?.user?.last_name}
+          </div>
           <div className="text-xs text-blackAlpha-600">Free Account</div>
         </div>
         <i className="cursor-pointer" onClick={() => setAuthState(null)}>

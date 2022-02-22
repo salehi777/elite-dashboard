@@ -9,3 +9,6 @@ export const signupApi = (body: {
   email: string;
   password: string;
 }) => axios.post("/auth/signup", body).then((res) => res.data);
+
+export const recoveryPassword = (body: { email: string }) =>
+  axios.post("/auth/signup", body).then((res) => res.data);

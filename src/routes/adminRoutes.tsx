@@ -3,6 +3,7 @@ import Analytics from "views/Analytics";
 import Invoice from "views/Invoice";
 import AddInvoice from "views/Invoice/AddInvoice";
 import EditInvoice from "views/Invoice/EditInvoice";
+import NotImplemented from "views/NotImplemented";
 
 import { IRoute } from "./RoutesHandler";
 
@@ -29,23 +30,19 @@ const routes: IRoute[] = [
   },
   {
     path: "/schedule",
-    component: Dashboard,
-  },
-  {
-    path: "/calendar",
-    component: Dashboard,
+    component: NotImplemented,
   },
   {
     path: "/messages",
-    component: Dashboard,
+    component: NotImplemented,
   },
   {
     path: "/notification",
-    component: Dashboard,
+    component: NotImplemented,
   },
   {
     path: "/settings",
-    component: Dashboard,
+    component: NotImplemented,
   },
 ];
 

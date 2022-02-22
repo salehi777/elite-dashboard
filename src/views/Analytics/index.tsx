@@ -29,7 +29,7 @@ export default function Analytics() {
   const columns = useMemo<IColumn[]>(
     () => [
       {
-        key: "name",
+        key: "Name",
         title: "Name",
         sortKey: "name",
         render: (record) => (
@@ -45,13 +45,13 @@ export default function Analytics() {
         ),
       },
       {
-        key: "email",
+        key: "Email",
         title: "Email",
         sortKey: "email",
         render: (record) => <div>{record.email}</div>,
       },
       {
-        key: "phone_number",
+        key: "Phone Number",
         title: "Phone Number",
         sortKey: "createdAt",
         render: (record) => <div>{record.phoneNumber}</div>,
@@ -63,7 +63,7 @@ export default function Analytics() {
         render: (record) => <GenderStatus gender={record.gender} />,
       },
       {
-        key: "actions",
+        key: "Actions",
         title: "",
         render: (record) => (
           <Menu
@@ -136,6 +136,8 @@ export default function Analytics() {
             api={getAnalyticss}
             columns={columns}
             gridTemplateColumns="1fr 1fr 1fr 100px 50px"
+            mobileColumnsKey={["Name", "Email", "Actions"]}
+            mobileGridTemplateColumns="1fr 1fr 50px"
             reload={reload}
             buttons={buttons}
             onRowClick={(record: any) =>

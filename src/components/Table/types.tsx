@@ -36,6 +36,8 @@ export type BaseTableProps = {
   isLoading: boolean;
   columns: IColumn[];
   gridTemplateColumns: string;
+  mobileColumnsKey: string[];
+  mobileGridTemplateColumns: string;
   sort: SortObject;
   setSort: (sort: SortObject) => void;
   selectable?: any;
@@ -45,15 +47,19 @@ export type BaseTableProps = {
 
 export type TableProps = {
   name: string;
-  api: (params: ApiParams) => Promise<any>;
+  api?: (params?: ApiParams) => Promise<any>;
+  dataSource?: { items: any[] };
   beforeSend?: (params: {}) => {};
   afterReceive?: (res: any) => void;
   reload?: boolean;
   columns: IColumn[];
   gridTemplateColumns: string;
+  mobileColumnsKey: string[];
+  mobileGridTemplateColumns: string;
   selectable?: any;
   rowKey?: string;
   showSearch?: boolean;
+  hidePagination?: boolean;
   buttons?: JSX.Element[];
   onRowClick?: (record: any) => void;
 };

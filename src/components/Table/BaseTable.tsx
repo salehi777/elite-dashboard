@@ -1,11 +1,13 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import {
   Checkbox as CheckboxChakra,
   CheckboxProps,
+  Collapse,
   Skeleton,
+  useMediaQuery,
 } from "@chakra-ui/react";
-import { BaseTableProps, ISelectableItem } from "./types";
+import { BaseTableProps, IColumn, ISelectableItem } from "./types";
 
 import { ReactComponent as SortIcon } from "assets/icons/Sort.svg";
 import { ReactComponent as ArrowDownIcon } from "assets/icons/Arrow-Down-2.svg";
@@ -25,6 +27,8 @@ export default function BaseTable({
   isLoading,
   columns,
   gridTemplateColumns,
+  mobileColumnsKey,
+  mobileGridTemplateColumns,
   sort,
   setSort,
   selectable,
@@ -36,11 +40,6 @@ export default function BaseTable({
     empty: true,
     records: [],
   });
-
-  const calcGridTemplateColumns = useMemo(() => {
-    if (selectable) return "50px " + gridTemplateColumns;
-    else return gridTemplateColumns;
-  }, []);
 
   const handleSelect = (records: any[]) => {
     const i = { all: false, empty: false };
@@ -62,6 +61,32 @@ export default function BaseTable({
     }
   };
 
+  // extend row in mobile
+  const [isMobile] = useMediaQuery("(max-width: 992px)");
+  const [mobileColumns, setMobileColumns] = useState<{
+    first: IColumn[];
+    second: IColumn[];
+  }>({ first: [], second: [] });
+  const [extendedRow, setExtendedRow] = useState<null | string>(null);
+  useEffect(() => {
+    const first = columns.filter((value) =>
+      mobileColumnsKey.includes(value.key)
+    );
+    const second = columns.filter(
+      (value) => !mobileColumnsKey.includes(value.key)
+    );
+    setMobileColumns({ first, second });
+  }, [columns, mobileColumnsKey]);
+
+  // final grid template column
+  const calcGridTemplateColumns = useMemo(() => {
+    let final = isMobile
+      ? "50px " + mobileGridTemplateColumns
+      : gridTemplateColumns;
+    if (selectable) final = "50px " + final;
+    return final;
+  }, [isMobile]);
+
   return (
     <div>
       <div
@@ -78,7 +103,8 @@ export default function BaseTable({
             }}
           />
         )}
-        {columns.map((column) => {
+        {isMobile && <span />}
+        {(isMobile ? mobileColumns.first : columns).map((column) => {
           const { key, title, sortKey, ...rest } = column;
           return (
             <div
@@ -139,7 +165,19 @@ export default function BaseTable({
                   }}
                 />
               )}
-              {columns.map((column) => {
+              {isMobile && (
+                <div
+                  className="h-[70px] p-1 flex justify-center items-center overflow-hidden cursor-pointer"
+                  onClick={() =>
+                    setExtendedRow(
+                      extendedRow === record[rowKey] ? null : record[rowKey]
+                    )
+                  }
+                >
+                  {extendedRow === record[rowKey] ? "-" : "+"}
+                </div>
+              )}
+              {(isMobile ? mobileColumns.first : columns).map((column) => {
                 const { key, title, render, className, ...rest } = column;
                 return (
                   <div
@@ -154,6 +192,20 @@ export default function BaseTable({
                 );
               })}
             </div>
+
+            <Collapse in={extendedRow === record[rowKey]} animateOpacity>
+              <div className="px-4 py-2 bg-gray-100 rounded-xl">
+                {mobileColumns.second.map((column) => {
+                  const { title, render, ...rest } = column;
+                  return (
+                    <div className="flex justify-between gap-8 my-2">
+                      {title && <div>{title}</div>}
+                      <div className="grow">{render(record)}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Collapse>
           </Skeleton>
         );
       })}
