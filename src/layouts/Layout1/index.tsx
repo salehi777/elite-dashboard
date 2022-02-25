@@ -8,7 +8,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 
-import { ReactComponent as PlusIcon } from "assets/icons/Plus.svg";
+import { ReactComponent as MenuIcon } from "assets/icons/Menu-White.svg";
 
 type Layout1Props = {
   children: JSX.Element;
@@ -29,7 +29,7 @@ export default function Layout1({ children }: Layout1Props) {
           ref={btnRef}
           aria-label="close form"
           colorScheme="primary"
-          icon={<PlusIcon />}
+          icon={<MenuIcon />}
           onClick={onOpen}
         />
 

@@ -12,6 +12,8 @@ import { BaseTableProps, IColumn, ISelectableItem } from "./types";
 import { ReactComponent as SortIcon } from "assets/icons/Sort.svg";
 import { ReactComponent as ArrowDownIcon } from "assets/icons/Arrow-Down-2.svg";
 import { ReactComponent as ArrowUpIcon } from "assets/icons/Arrow-Up-2.svg";
+import { ReactComponent as PlusIcon } from "assets/icons/circle-plus.svg";
+import { ReactComponent as MinusIcon } from "assets/icons/circle-minus.svg";
 
 const Checkbox = (props: CheckboxProps) => (
   <CheckboxChakra
@@ -138,8 +140,9 @@ export default function BaseTable({
         })}
       </div>
 
-      {(
-        data || (isLoading ? [1, 2, 3, 4] : []).map((i) => ({ [rowKey]: i }))
+      {(isLoading
+        ? [1, 2, 3, 4].map((i) => ({ [rowKey]: i }))
+        : data || []
       ).map((record) => {
         return (
           <Skeleton key={record[rowKey]} isLoaded={!isLoading}>
@@ -174,7 +177,11 @@ export default function BaseTable({
                     )
                   }
                 >
-                  {extendedRow === record[rowKey] ? "-" : "+"}
+                  {extendedRow === record[rowKey] ? (
+                    <MinusIcon width={20} />
+                  ) : (
+                    <PlusIcon width={20} />
+                  )}
                 </div>
               )}
               {(isMobile ? mobileColumns.first : columns).map((column) => {
@@ -198,9 +205,9 @@ export default function BaseTable({
                 {mobileColumns.second.map((column) => {
                   const { title, render, ...rest } = column;
                   return (
-                    <div className="flex justify-between gap-8 my-2">
+                    <div className="flex justify-between gap-8 my-4">
                       {title && <div>{title}</div>}
-                      <div className="grow">{render(record)}</div>
+                      <div>{render(record)}</div>
                     </div>
                   );
                 })}

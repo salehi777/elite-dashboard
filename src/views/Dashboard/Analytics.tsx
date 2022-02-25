@@ -28,7 +28,7 @@ export default React.memo(function Analytics({ data }: AnalyticsProps) {
         </div>
 
         <Doughnut
-          className="mx-auto xl:!w-[305px] xl:!h-[305px] lg:!w-[250px] lg:!h-[250px]"
+          className="xl:!max-w-[305px] xl:!max-h-[305px] lg:!max-w-[250px] lg:!max-h-[250px] mx-auto"
           data={{
             labels: ["Sale", "Distribute", "Return"],
             datasets: [

@@ -26,7 +26,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
     <div className="relative flex flex-col bg-white lg:min-h-screen">
       <IconButton
         aria-label="close form"
-        className="!rounded-full !bg-red-200 !absolute top-2 left-2 lg:!hidden"
+        className="!rounded-full !bg-red-200 !absolute top-2 right-2 lg:!hidden"
         icon={<CloseIcon color="red" />}
         onClick={onClose}
       />
@@ -53,14 +53,10 @@ export default function Sidebar({ onClose }: SidebarProps) {
               })}
               onClick={onClose}
             >
-              {({ isActive }) => (
-                <>
-                  <i className="flex mr-3">
-                    <item.icon />
-                  </i>
-                  {item.title}
-                </>
-              )}
+              <i className="flex mr-3">
+                <item.icon />
+              </i>
+              {item.title}
             </NavLink>
           </li>
         ))}
