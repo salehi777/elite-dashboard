@@ -132,7 +132,7 @@ export default function Analytics() {
           <h1 className="mb-8 text-2xl font-bold">Customer List</h1>
 
           <Table
-            name="invoices"
+            name="analytics"
             api={getAnalyticss}
             columns={columns}
             gridTemplateColumns="1fr 1fr 1fr 100px 50px"

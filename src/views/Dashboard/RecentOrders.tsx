@@ -58,7 +58,7 @@ export default function RecentOrders({ data }: RecentOrdersProps) {
       <h4 className="mb-4 text-xl font-bold">Recent Orders</h4>
 
       <Table
-        name="invoices"
+        name="RecentOrders"
         dataSource={{ items: data || [] }}
         columns={columns}
         gridTemplateColumns="85px 1fr 1fr 1fr 1fr"
