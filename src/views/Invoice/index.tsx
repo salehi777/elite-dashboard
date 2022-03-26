@@ -192,7 +192,7 @@ export default function Invoice() {
         name="invoices"
         api={getInvoices}
         columns={columns}
-        gridTemplateColumns="85px 1fr 1fr 1fr 1fr 50px 50px"
+        gridTemplateColumns="95px 1fr 1fr 1fr 1fr 50px 50px"
         mobileColumnsKey={["Name", "Status", "Actions"]}
         mobileGridTemplateColumns="1fr 1fr 50px"
         selectable={selectable}
