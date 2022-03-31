@@ -17,12 +17,12 @@ const config: {
     bgColor: "#F293391A",
   },
   completed: {
-    title: "Pending",
+    title: "Completed",
     color: "#3A974C",
     bgColor: "#3A974C1A",
   },
   cancel: {
-    title: "Pending",
+    title: "Cancel",
     color: "#D11A2A",
     bgColor: "#D11A2A1A",
   },

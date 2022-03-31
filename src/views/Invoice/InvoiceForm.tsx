@@ -59,7 +59,7 @@ export default function InvoiceForm({ invoiceData }: InvoiceFormProps) {
             {invoiceData ? "Edit Invoice" : "Create New Invoice"}
           </h1>
 
-          <Uploader />
+          {/* <Uploader /> */}
 
           <div className="flex flex-wrap -mx-2">
             <div className="w-full px-2 lg:w-1/2">

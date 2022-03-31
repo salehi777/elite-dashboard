@@ -32,7 +32,9 @@ export default function AnalyticsDetail({ record }: AnalyticsDetailProps) {
           <i className="flex mr-2">
             <MessageIcon />
           </i>
-          <span>{record?.email}</span>
+          <span className="whitespace-pre-wrap max-w-[14rem]">
+            {record?.email}
+          </span>
         </div>
         <hr className="my-6 border-gray-100" />
         <div className="flex items-center mt-6 text-main-secondary">
