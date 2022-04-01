@@ -166,7 +166,6 @@ export default function Reports({ data }: ReportsProps) {
                 if (activePoint) {
                   const x = activePoint.element.x;
                   const y = activePoint.element.y;
-                  const topY = chart.scales.y.top;
                   const bottomY = chart.scales.y.bottom;
 
                   ctx.save();

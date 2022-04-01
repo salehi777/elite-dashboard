@@ -66,7 +66,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       <div className="my-3 grow" />
 
       <div className="flex flex-col justify-center px-8 max-w-[250px] mx-auto">
-        <img src={LampImage} />
+        <img src={LampImage} alt="Lamp" />
 
         <div className="relative flex justify-center -top-14">
           <Button

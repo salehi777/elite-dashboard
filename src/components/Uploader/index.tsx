@@ -42,7 +42,10 @@ export default function Uploader({ setFilename, defaultValue }: UploaderProps) {
         <input {...getInputProps()} />
         <Skeleton className="w-[130px] h-[130px] mx-auto" isLoaded={!isLoading}>
           {image ? (
-            <img src={`${process.env.REACT_APP_BASE_URL_FILES}/${image}`} />
+            <img
+              src={`${process.env.REACT_APP_BASE_URL_FILES}/${image}`}
+              alt="Upload"
+            />
           ) : (
             <i className="flex items-center justify-center w-full h-full bg-gray-100 rounded-full">
               <CameraIcon />

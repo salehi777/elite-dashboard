@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 import { toast } from "react-toastify";
 import { IconButton, Button } from "@chakra-ui/react";
-import Uploader from "components/Uploader";
 import { Input } from "components/Inputs";
 
 import { ReactComponent as DeleteIcon } from "assets/icons/Delete.svg";

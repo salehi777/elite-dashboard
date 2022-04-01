@@ -33,6 +33,10 @@ const routes: IRoute[] = [
     component: NotImplemented,
   },
   {
+    path: "/calendar",
+    component: NotImplemented,
+  },
+  {
     path: "/messages",
     component: NotImplemented,
   },

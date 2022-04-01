@@ -9,8 +9,6 @@ import {
   AlertDialogProps,
   Button,
 } from "@chakra-ui/react";
-import styles from "./alert.module.css";
-import clsx from "clsx";
 
 interface AlertDeleteProps
   extends Omit<AlertDialogProps, "leastDestructiveRef" | "children"> {

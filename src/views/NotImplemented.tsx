@@ -7,7 +7,7 @@ export default function NotImplemented() {
         This section is under development.
       </h1>
 
-      <img src={WorkAtHomeImage} />
+      <img src={WorkAtHomeImage} alt="Not implemented" />
     </div>
   );
 }

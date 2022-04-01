@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import TableSearch from "./TableSearch";
 import { TableHeaderProps } from "./types";
 

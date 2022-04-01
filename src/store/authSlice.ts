@@ -3,9 +3,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface IAuth {
   token: string | null;
   user: any;
+  loading: boolean;
+  error: any;
 }
 
-const initialState: IAuth = { token: null, user: null };
+const initialState: IAuth = {
+  token: null,
+  user: null,
+  loading: false,
+  error: null,
+};
 
 export const authSlice = createSlice({
   name: "auth",

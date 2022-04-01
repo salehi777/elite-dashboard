@@ -98,7 +98,7 @@ export default function Login() {
           </div>
         </div>
         <div className="w-2/3 p-4">
-          <img src={LoginImage} className="mx-auto" />
+          <img src={LoginImage} className="mx-auto" alt="Login" />
         </div>
       </div>
     </main>

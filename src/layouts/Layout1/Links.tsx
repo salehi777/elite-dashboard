@@ -34,11 +34,11 @@ export const sidebarLinks: ILink[] = [
     title: "Schedule",
     icon: DocumentIcon,
   },
-  // {
-  //   href: "/calendar",
-  //   title: "Calendar",
-  //   icon: CalendarIcon,
-  // },
+  {
+    href: "/calendar",
+    title: "Calendar",
+    icon: CalendarIcon,
+  },
   {
     href: "/messages",
     title: "Messages",

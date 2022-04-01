@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Input, Checkbox } from "components/Inputs";
 import { useForm, FormProvider } from "react-hook-form";
 import { useMutation } from "react-query";
@@ -37,7 +37,7 @@ export default function Signup() {
       {saveRes ? (
         <div className="flex items-center justify-center w-screen h-screen">
           <div className="flex flex-col items-center bg-whtie">
-            <img src={WelcomeImage} />
+            <img src={WelcomeImage} alt="Welcome" />
 
             <div className="mt-10">Your account successfully created.</div>
 
@@ -148,7 +148,7 @@ export default function Signup() {
             </div>
           </div>
           <div className="w-2/3 p-4">
-            <img src={SignupImage} className="mx-auto" />
+            <img src={SignupImage} className="mx-auto" alt="Signup" />
           </div>
         </div>
       )}

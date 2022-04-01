@@ -12,8 +12,9 @@ import { QueryErrorResetBoundary } from "react-query";
 import { ToastContainer } from "react-toastify";
 
 // redux
-import { store } from "store/store";
+import { store, persistor } from "store/store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 // styles
 import { chakraTheme, tailwindTheme } from "utils/theme";
@@ -46,14 +47,16 @@ ReactDOM.render(
             )}
           >
             <Provider store={store}>
-              <BrowserRouter>
-                <ChakraProvider theme={chakraTheme}>
-                  <ThemeProvider theme={tailwindTheme}>
-                    <ToastContainer />
-                    <App />
-                  </ThemeProvider>
-                </ChakraProvider>
-              </BrowserRouter>
+              <PersistGate loading={null} persistor={persistor}>
+                <BrowserRouter>
+                  <ChakraProvider theme={chakraTheme}>
+                    <ThemeProvider theme={tailwindTheme}>
+                      <ToastContainer />
+                      <App />
+                    </ThemeProvider>
+                  </ChakraProvider>
+                </BrowserRouter>
+              </PersistGate>
             </Provider>
           </ErrorBoundary>
         )}

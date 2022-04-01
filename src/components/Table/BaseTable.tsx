@@ -107,7 +107,7 @@ export default function BaseTable({
         )}
         {isMobile && <span />}
         {(isMobile ? mobileColumns.first : columns).map((column) => {
-          const { key, title, sortKey, ...rest } = column;
+          const { key, title, sortKey } = column;
           return (
             <div
               key={key}
@@ -185,7 +185,7 @@ export default function BaseTable({
                 </div>
               )}
               {(isMobile ? mobileColumns.first : columns).map((column) => {
-                const { key, title, render, className, ...rest } = column;
+                const { key, render, className } = column;
                 return (
                   <div
                     key={key}
@@ -203,7 +203,7 @@ export default function BaseTable({
             <Collapse in={extendedRow === record[rowKey]} animateOpacity>
               <div className="px-4 py-2 bg-gray-100 rounded-xl">
                 {mobileColumns.second.map((column) => {
-                  const { title, render, ...rest } = column;
+                  const { title, render } = column;
                   return (
                     <div className="flex justify-between gap-8 my-4">
                       {title && <div>{title}</div>}

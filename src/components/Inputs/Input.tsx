@@ -8,10 +8,10 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import clsx from "clsx";
 import { InputProps } from "./types";
 
-import { ReactComponent as HideIcon } from "assets/icons/Hide.svg";
+import { ReactComponent as EyeIcon } from "assets/icons/Eye.svg";
+import { ReactComponent as EyeOffIcon } from "assets/icons/Eye-Off.svg";
 
 const index = (obj: any, i: any) => obj?.[i];
 
@@ -60,7 +60,7 @@ export default function Input({
             {type === "password" && (
               <InputRightElement width="4.5rem">
                 <i onClick={handleClick} className="flex mt-2 cursor-pointer">
-                  {show ? "Hide" : <HideIcon />}
+                  {show ? <EyeIcon /> : <EyeOffIcon />}
                 </i>
               </InputRightElement>
             )}
