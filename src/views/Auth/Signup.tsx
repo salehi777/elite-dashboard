@@ -5,9 +5,9 @@ import { Input, Checkbox } from "components/Inputs";
 import { useForm, FormProvider } from "react-hook-form";
 import { useMutation } from "react-query";
 
-// recoil
-import authAtom from "store/auth";
-import { useSetRecoilState } from "recoil";
+// redux
+import { useDispatch } from "react-redux";
+import { signup } from "store/authSlice";
 
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import { ReactComponent as GoogleIcon } from "assets/icons/Social-Google.svg";
@@ -19,7 +19,7 @@ import { signupApi } from "services";
 
 export default function Signup() {
   const methods = useForm();
-  const setAuthState = useSetRecoilState(authAtom);
+  const dispatch = useDispatch();
   const [saveRes, setSaveRes] = useState();
 
   const { mutate, isLoading } = useMutation((data: any) => {
@@ -45,8 +45,7 @@ export default function Signup() {
               colorScheme="primary"
               className="mt-8"
               onClick={() => {
-                setAuthState(saveRes);
-                window.location.reload();
+                dispatch(signup(saveRes));
               }}
             >
               Go to Home

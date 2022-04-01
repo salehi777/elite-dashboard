@@ -26,7 +26,7 @@ const config: {
 export default function GenderStatus({ gender }: GenderStatusProps) {
   return (
     <div
-      className="w-full h-[45px] flex items-center justify-center"
+      className="w-full h-[45px] flex items-center justify-center px-2"
       style={{
         borderRadius: 22,
         color: config[gender]?.color,

@@ -1,15 +1,11 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-
-const recoilPersist = localStorage.getItem("recoil-persist");
+import { store } from "store/store";
 
 const configs = {
   baseURL: `${process.env.REACT_APP_BASE_URL}`,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${
-      recoilPersist ? JSON.parse(recoilPersist)?.auth?.token : ""
-    }`,
   },
   validateStatus: (status: number) => status >= 200 && status < 400,
 };
@@ -17,7 +13,13 @@ const configs = {
 const api = axios.create(configs);
 
 api.interceptors.request.use(
-  (config) => config,
+  (config) => {
+    if (config.headers)
+      config.headers.Authorization = `Bearer ${
+        store.getState().auth.token || ""
+      }`;
+    return config;
+  },
   (error) => Promise.reject(error)
 );
 

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import adminRoutes from "./adminRoutes";
 import authRoutes from "./authRoutes";
-import { IAuth } from "store/auth";
+import { IAuth } from "store/authSlice";
 
 export interface IRoute {
   path: string;
@@ -10,7 +10,7 @@ export interface IRoute {
 }
 
 type RoutesHandlerProps = {
-  authState: IAuth | null;
+  authState: IAuth;
 };
 type RedirectProps = {
   to: string;
@@ -25,7 +25,7 @@ function Redirect({ to }: RedirectProps) {
 }
 
 export default function RoutesHandler({ authState }: RoutesHandlerProps) {
-  const routes = authState ? adminRoutes : authRoutes;
+  const routes = authState.token ? adminRoutes : authRoutes;
 
   return (
     <Routes>
@@ -34,7 +34,7 @@ export default function RoutesHandler({ authState }: RoutesHandlerProps) {
       ))}
       <Route
         path="*"
-        element={<Redirect to={authState ? "/dashboard" : "/login"} />}
+        element={<Redirect to={authState.token ? "/dashboard" : "/login"} />}
       />
     </Routes>
   );

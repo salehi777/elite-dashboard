@@ -5,9 +5,9 @@ import { useForm, FormProvider } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useMutation } from "react-query";
 
-// recoil
-import authAtom from "store/auth";
-import { useSetRecoilState } from "recoil";
+// redux
+import { useDispatch } from "react-redux";
+import { login } from "store/authSlice";
 
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import { ReactComponent as GoogleIcon } from "assets/icons/Social-Google.svg";
@@ -18,13 +18,12 @@ import { signinApi } from "services";
 
 export default function Login() {
   const methods = useForm();
-  const setAuthState = useSetRecoilState(authAtom);
+  const dispatch = useDispatch();
 
   const { mutate, isLoading } = useMutation((data: any) => {
     return signinApi(data)
       .then((res) => {
-        setAuthState(res);
-        window.location.reload();
+        dispatch(login(res));
         toast.success("Login was successful");
       })
       .catch(() => {});
@@ -33,7 +32,7 @@ export default function Login() {
   const onSubmit = (data: any) => mutate(data);
 
   return (
-    <main className="">
+    <main>
       <div className="flex items-center">
         <div className="flex flex-col justify-center w-1/3 min-h-screen p-8 text-center bg-white">
           <i>
@@ -63,14 +62,14 @@ export default function Login() {
                 name="email"
                 type="email"
                 rules={{ required: true }}
-                placeholder="example@gmail.com"
+                placeholder="admin@mail.com"
               />
               <Input
                 label="Password"
                 name="password"
                 type="password"
                 rules={{ required: true }}
-                placeholder="********"
+                placeholder="1234"
               />
 
               <div className="flex justify-end mt-3">

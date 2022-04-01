@@ -6,11 +6,14 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ChakraProvider } from "@chakra-ui/react";
-import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "@emotion/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { QueryErrorResetBoundary } from "react-query";
 import { ToastContainer } from "react-toastify";
+
+// redux
+import { store } from "store/store";
+import { Provider } from "react-redux";
 
 // styles
 import { chakraTheme, tailwindTheme } from "utils/theme";
@@ -42,7 +45,7 @@ ReactDOM.render(
               </div>
             )}
           >
-            <RecoilRoot>
+            <Provider store={store}>
               <BrowserRouter>
                 <ChakraProvider theme={chakraTheme}>
                   <ThemeProvider theme={tailwindTheme}>
@@ -51,7 +54,7 @@ ReactDOM.render(
                   </ThemeProvider>
                 </ChakraProvider>
               </BrowserRouter>
-            </RecoilRoot>
+            </Provider>
           </ErrorBoundary>
         )}
       </QueryErrorResetBoundary>

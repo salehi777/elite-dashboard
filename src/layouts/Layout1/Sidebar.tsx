@@ -6,9 +6,9 @@ import { Avatar } from "components/Avatars";
 import styles from "./layout1.module.css";
 import { toast } from "react-toastify";
 
-// recoil
-import authAtom from "store/auth";
-import { useRecoilState } from "recoil";
+// redux
+import { logout } from "store/authSlice";
+import { useAppSelector, useAppDispatch } from "store/store";
 
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import { ReactComponent as LogoutIcon } from "assets/icons/Logout.svg";
@@ -20,7 +20,8 @@ type SidebarProps = {
 };
 
 export default function Sidebar({ onClose }: SidebarProps) {
-  const [authState, setAuthState] = useRecoilState(authAtom);
+  const authState = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="relative flex flex-col bg-white lg:min-h-screen">
@@ -80,16 +81,16 @@ export default function Sidebar({ onClose }: SidebarProps) {
 
       <div className="flex items-center justify-between px-8 pb-8">
         <Avatar
-          src={`${process.env.REACT_APP_BASE_URL_FILES}/${authState?.user?.image}`}
+          src={`${process.env.REACT_APP_BASE_URL_FILES}/${authState.user?.image}`}
         />
 
         <div>
           <div className="mb-1 text-sm text-black">
-            {authState?.user?.first_name} {authState?.user?.last_name}
+            {authState.user?.first_name} {authState.user?.last_name}
           </div>
           <div className="text-xs text-blackAlpha-600">Free Account</div>
         </div>
-        <i className="cursor-pointer" onClick={() => setAuthState(null)}>
+        <i className="cursor-pointer" onClick={() => dispatch(logout())}>
           <LogoutIcon />
         </i>
       </div>

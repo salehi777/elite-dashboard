@@ -1,15 +1,12 @@
 import React from "react";
 import Layout1 from "layouts/Layout1";
 import RoutesHandler from "routes/RoutesHandler";
-
-// recoil
-import authAtom, { IAuth } from "store/auth";
-import { useRecoilValue } from "recoil";
+import { useAppSelector } from "store/store";
 
 export default function App() {
-  const authState = useRecoilValue<IAuth | null>(authAtom);
+  const authState = useAppSelector((state) => state.auth);
 
-  const Layout = authState ? Layout1 : React.Fragment;
+  const Layout = authState.token ? Layout1 : React.Fragment;
 
   return (
     <Layout>
