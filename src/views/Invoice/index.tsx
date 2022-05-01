@@ -115,7 +115,7 @@ export default function Invoice() {
             className="cursor-pointer"
             onClick={() => {
               if (selectableItem.records.length === 0) {
-                toast.warn("Plase Select at least one row");
+                toast.warn("Please Select at least one row");
               } else {
                 const ids = selectableItem.records.map((item) => item._id);
                 console.log("ids", ids);

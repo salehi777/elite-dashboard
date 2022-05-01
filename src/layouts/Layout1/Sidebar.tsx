@@ -72,7 +72,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
           <Button
             colorScheme="primary"
             className="!w-10/12"
-            onClick={() => toast.info("Plase contact to our admin")}
+            onClick={() => toast.info("Please contact to our admin")}
           >
             Upgrade Now
           </Button>
