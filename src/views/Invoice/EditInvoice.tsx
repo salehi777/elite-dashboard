@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@chakra-ui/react";
 import InvoiceForm from "./InvoiceForm";

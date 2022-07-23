@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";

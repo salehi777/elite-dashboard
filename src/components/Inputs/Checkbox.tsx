@@ -16,9 +16,9 @@ export default function Checkbox({ name, rules, ...props }: CheckboxProps) {
       control={control}
       rules={rules}
       render={({ field }) => (
-        <FormControl isInvalid={formState.errors[name]}>
+        <FormControl isInvalid={!!formState.errors[name]}>
           <CheckboxChakra
-            isInvalid={formState.errors[name]}
+            isInvalid={!!formState.errors[name]}
             name={name}
             onChange={(e) => {
               field.onChange(e.target.checked);
@@ -27,7 +27,8 @@ export default function Checkbox({ name, rules, ...props }: CheckboxProps) {
           />
 
           <FormErrorMessage>
-            {formState.errors[name]?.message || "Please check out the filed"}
+            {String(formState.errors[name]?.message) ||
+              "Please check out the filed"}
           </FormErrorMessage>
         </FormControl>
       )}

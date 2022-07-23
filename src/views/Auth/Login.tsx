@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Input } from "components/Inputs";
 import { useForm, FormProvider } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 // redux
 import { useDispatch } from "react-redux";

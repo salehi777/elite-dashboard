@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import BaseTable from "./BaseTable";
 import { TableProps, SortObject } from "./types";
 import Pagination from "./Pagination";

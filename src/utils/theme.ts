@@ -1,7 +1,7 @@
 import { theme as chakraUITheme } from "@chakra-ui/react";
 // @ts-ignore
 import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../../tailwind.config";
+import tailwindConfig from "../tailwind.config";
 import "@emotion/react";
 
 const { theme: tailwindTheme } = resolveConfig(tailwindConfig);

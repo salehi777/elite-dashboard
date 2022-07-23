@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Button, IconButton } from "@chakra-ui/react";
 import { useForm, FormProvider } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Input } from "components/Inputs";
 import Uploader from "components/Uploader";

@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import Stat from "./Stat";
 import { Skeleton } from "@chakra-ui/react";
 import Reports from "./Reports";
@@ -14,7 +14,7 @@ import { ReactComponent as WorkIcon } from "assets/icons/Work.svg";
 import { getDashboard } from "services";
 
 export default function Dashboard() {
-  const { data, isLoading } = useQuery("dashboard", () => getDashboard());
+  const { data, isLoading } = useQuery(["dashboard"], () => getDashboard());
 
   return (
     <div>
