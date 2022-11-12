@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -13,6 +13,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { ThemeProvider } from "@emotion/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { ToastContainer } from "react-toastify";
+import "utils/i18n";
 
 // redux
 import { store, persistor } from "store/store";
@@ -39,35 +40,39 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
-      <QueryErrorResetBoundary>
-        {({ reset }) => (
-          <ErrorBoundary
-            onReset={reset}
-            fallbackRender={({ resetErrorBoundary }) => (
-              <div>
-                There was an error!{" "}
-                <button onClick={() => resetErrorBoundary()}>Try again</button>
-              </div>
-            )}
-          >
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-                <BrowserRouter>
-                  <ChakraProvider theme={chakraTheme}>
-                    <ThemeProvider theme={tailwindTheme}>
-                      <ToastContainer />
-                      <App />
-                    </ThemeProvider>
-                  </ChakraProvider>
-                </BrowserRouter>
-              </PersistGate>
-            </Provider>
-          </ErrorBoundary>
-        )}
-      </QueryErrorResetBoundary>
-    </QueryClientProvider>
+    <Suspense fallback="Loading...">
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools />
+        <QueryErrorResetBoundary>
+          {({ reset }) => (
+            <ErrorBoundary
+              onReset={reset}
+              fallbackRender={({ resetErrorBoundary }) => (
+                <div>
+                  There was an error!{" "}
+                  <button onClick={() => resetErrorBoundary()}>
+                    Try again
+                  </button>
+                </div>
+              )}
+            >
+              <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                  <BrowserRouter>
+                    <ChakraProvider theme={chakraTheme}>
+                      <ThemeProvider theme={tailwindTheme || {}}>
+                        <ToastContainer />
+                        <App />
+                      </ThemeProvider>
+                    </ChakraProvider>
+                  </BrowserRouter>
+                </PersistGate>
+              </Provider>
+            </ErrorBoundary>
+          )}
+        </QueryErrorResetBoundary>
+      </QueryClientProvider>
+    </Suspense>
   </React.StrictMode>
 );
 

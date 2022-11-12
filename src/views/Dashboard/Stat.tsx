@@ -12,7 +12,7 @@ export default function Stat({ count, title, color, icon }: StatProps) {
     <div className="bg-white p-6 rounded-xl flex gap-4">
       <div
         className="rounded-full bg-red-200 w-[60px] h-[60px] flex justify-center items-center"
-        style={{ background: `${tailwindTheme.colors[color][500]}33` }}
+        style={{ background: `${tailwindTheme?.colors?.[color]?.[500]}33` }}
       >
         {icon}
       </div>

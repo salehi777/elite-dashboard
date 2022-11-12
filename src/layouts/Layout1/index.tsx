@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Sidebar from "./Sidebar";
+import Header from "./Header";
 import {
   Drawer,
   DrawerOverlay,
@@ -19,10 +20,14 @@ export default function Layout1({ children }: Layout1Props) {
   const btnRef = useRef(null);
 
   return (
-    <div className="flex flex-col lg:flex-row">
-      <div className="fixed hidden min-h-screen lg:block w-60">
+    <div className="">
+      <header className="fixed shadow h-16 w-full lg:w-[calc(100vw-240px)] lg:ml-[240px]">
+        <Header />
+      </header>
+
+      <section className="fixed hidden min-h-screen lg:block w-[240px]">
         <Sidebar />
-      </div>
+      </section>
 
       <div className="px-4 py-4 lg:hidden">
         <IconButton
@@ -32,7 +37,6 @@ export default function Layout1({ children }: Layout1Props) {
           icon={<MenuIcon />}
           onClick={onOpen}
         />
-
         <Drawer
           isOpen={isOpen}
           placement="left"
@@ -46,7 +50,7 @@ export default function Layout1({ children }: Layout1Props) {
         </Drawer>
       </div>
 
-      <main className="p-8 lg:min-h-screen grow lg:ml-60">{children}</main>
+      <main className="p-8 pt-24 min-h-screen lg:ml-[240px]">{children}</main>
     </div>
   );
 }

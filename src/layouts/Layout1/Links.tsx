@@ -16,7 +16,7 @@ export interface ILink {
 export const sidebarLinks: ILink[] = [
   {
     href: "/dashboard",
-    title: "Dashboard",
+    title: "dashboard",
     icon: CategoryIcon,
   },
   {

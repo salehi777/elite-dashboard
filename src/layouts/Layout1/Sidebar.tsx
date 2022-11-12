@@ -5,6 +5,7 @@ import { Button, IconButton } from "@chakra-ui/react";
 import { Avatar } from "components/Avatars";
 import styles from "./layout1.module.css";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 // redux
 import { logout } from "store/authSlice";
@@ -20,6 +21,7 @@ type SidebarProps = {
 };
 
 export default function Sidebar({ onClose }: SidebarProps) {
+  const { t } = useTranslation();
   const authState = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
@@ -57,7 +59,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
               <i className="flex mr-3">
                 <item.icon />
               </i>
-              {item.title}
+              <span>{t(item.title)}</span>
             </NavLink>
           </li>
         ))}
