@@ -34,10 +34,7 @@ export default function Analytics() {
         sortKey: "name",
         render: (record) => (
           <div className="flex items-center">
-            <Avatar
-              src={`${process.env.REACT_APP_BASE_URL_FILES}/${record.image}`}
-              className="mr-1"
-            />
+            <Avatar src={`${record.image}`} className="mr-1" />
             <span>
               {record.first_name} {record.last_name}
             </span>

@@ -80,9 +80,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       </div>
 
       <div className="flex items-center justify-between px-8 pb-8">
-        <Avatar
-          src={`${process.env.REACT_APP_BASE_URL_FILES}/${authState.user?.image}`}
-        />
+        <Avatar src={`${authState.user?.image}`} />
 
         <div>
           <div className="mb-1 text-sm text-black">

@@ -16,7 +16,7 @@ export default function TopSelling({ data }: TopSellingProps) {
         {data?.map((item) => (
           <div className="flex items-center">
             <Avatar
-              src={`${process.env.REACT_APP_BASE_URL_FILES}/${item.image}`}
+              src={`${item.image}`}
               size="xl"
               className="mr-4"
             />

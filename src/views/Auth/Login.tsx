@@ -63,6 +63,7 @@ export default function Login() {
                 type="email"
                 rules={{ required: true }}
                 placeholder="admin@mail.com"
+                defaultValue="admin@mail.com"
               />
               <Input
                 label="Password"
@@ -70,6 +71,7 @@ export default function Login() {
                 type="password"
                 rules={{ required: true }}
                 placeholder="1234"
+                defaultValue="1234"
               />
 
               <div className="flex justify-end mt-3">

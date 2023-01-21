@@ -21,9 +21,7 @@ export default function RecentOrders({ data }: RecentOrdersProps) {
         title: "Product Name",
         render: (record) => (
           <div className="flex items-center gap-2">
-            <Avatar
-              src={`${process.env.REACT_APP_BASE_URL_FILES}/${record.product?.image}`}
-            />
+            <Avatar src={`${record.product?.image}`} />
             <span>{record.product?.name}</span>
           </div>
         ),

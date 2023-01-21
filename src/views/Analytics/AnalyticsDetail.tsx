@@ -13,7 +13,7 @@ export default function AnalyticsDetail({ record }: AnalyticsDetailProps) {
     <div>
       <div className="flex flex-col items-center py-4">
         <Avatar
-          src={`${process.env.REACT_APP_BASE_URL_FILES}/${record?.image}`}
+          src={`${record?.image}`}
           className="rounded-full w-[70px] h-[70px]"
           circle
           size="lg"
